@@ -11,6 +11,6 @@ COPY . /usr/src/app
 # Build production version of our app
 # RUN npm run build --force
 
-EXPOSE 3333
+EXPOSE 3000
 
 CMD npm start

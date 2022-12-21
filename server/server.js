@@ -4,7 +4,7 @@ const path = require('path');
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schema');
 
-const PORT = 3333;
+const PORT = 3000;
 //intiate a new Apollo graphQL server here.
 async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({ typeDefs, resolvers });
@@ -12,6 +12,9 @@ async function startApolloServer(typeDefs, resolvers) {
   server.applyMiddleware({ app, path: "/graphql" });
 }
 
+app.get('/jokes', (req, res) => {
+  res.send('I spilled spot remover on my dog, now he\'s gone');
+})
 
 app.listen(PORT, () => {
   console.log("LISTENING ON PORT: ", PORT)
