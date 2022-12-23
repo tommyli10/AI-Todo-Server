@@ -266,10 +266,10 @@ const resolvers = {
       if (newTimeOfDayHour < 7) {
         // dawn
         time_of_day = 1;
-      } else if (newTimeOfDayHour < 12) {
+      } else if (newTimeOfDayHour >= 7 && newTimeOfDayHour < 12) {
         // morning
         time_of_day = 2;
-      } else if (newTimeOfDayHour < 18) {
+      } else if (newTimeOfDayHour >= 12 && newTimeOfDayHour < 18) {
         // afternoon
         time_of_day = 3;
       } else {
