@@ -220,10 +220,10 @@ const resolvers = {
       if (timeOfDayHour < 7) {
         // dawn
         time_of_day = 1;
-      } else if (timeOfDayHour < 12) {
+      } else if (timeOfDayHour >= 7 && timeOfDayHour < 12) {
         // morning
         time_of_day = 2;
-      } else if (timeOfDayHour < 18) {
+      } else if (timeOfDayHour >= 12 && timeOfDayHour < 18) {
         // afternoon
         time_of_day = 3;
       } else {
@@ -319,10 +319,10 @@ const resolvers = {
       if (newTimeOfDayHour < 7) {
         // dawn
         newTimeOfDay = 1;
-      } else if (newTimeOfDayHour < 12) {
+      } else if (newTimeOfDayHour >= 7 && newTimeOfDayHour < 12) {
         // morning
         newTimeOfDay = 2;
-      } else if (newTimeOfDayHour < 18) {
+      } else if (newTimeOfDayHour >= 12 && newTimeOfDayHour < 18) {
         // afternoon
         newTimeOfDay = 3;
       } else {
