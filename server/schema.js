@@ -216,14 +216,14 @@ const resolvers = {
       } = args.task;
 
       let time_of_day;
-      const timeOfDayHour = new Date(time_start).getHours();
+      const timeOfDayHour = new Date(Number(time_start)).getHours();
       if (timeOfDayHour < 7) {
         // dawn
         time_of_day = 1;
       } else if (timeOfDayHour >= 7 && timeOfDayHour < 12) {
         // morning
         time_of_day = 2;
-      } else if (timeOfDayHour >= 12 && timeOfDayHour < 18) {
+      } else if (timeOfDayHour >= 12 && timeOfDayHour <= 18) {
         // afternoon
         time_of_day = 3;
       } else {
@@ -256,12 +256,10 @@ const resolvers = {
         category,
         date,
         time_start,
-        time_finished,
-        completed,
-        completed_on_time
+        time_finished
       } = args.task;
 
-      const newTimeOfDayHour = new Date(time_start).getHours();
+      const newTimeOfDayHour = new Date(Number(time_start)).getHours();
       let time_of_day;
       if (newTimeOfDayHour < 7) {
         // dawn
@@ -269,7 +267,7 @@ const resolvers = {
       } else if (newTimeOfDayHour >= 7 && newTimeOfDayHour < 12) {
         // morning
         time_of_day = 2;
-      } else if (newTimeOfDayHour >= 12 && newTimeOfDayHour < 18) {
+      } else if (newTimeOfDayHour >= 12 && newTimeOfDayHour <= 18) {
         // afternoon
         time_of_day = 3;
       } else {
@@ -277,7 +275,7 @@ const resolvers = {
         time_of_day = 4;
       }
 
-      const queryString = `UPDATE tasks SET task_name = $1, task_description = $2, category = $3, date = $4, time_start = $5, time_finished = $6, time_of_day = $7, completed = $8, completed_on_time = $9 WHERE id = $10 RETURNING *;`;
+      const queryString = `UPDATE tasks SET task_name = $1, task_description = $2, category = $3, date = $4, time_start = $5, time_finished = $6, time_of_day = $7 WHERE id = $8 RETURNING *;`;
       const updatedTask = await db.query(queryString, [
         task_name,
         task_description,
@@ -286,8 +284,6 @@ const resolvers = {
         time_start,
         time_finished,
         time_of_day,
-        completed,
-        completed_on_time ?? 0,
         id,
       ]);
       return updatedTask.rows[0];
@@ -314,7 +310,7 @@ const resolvers = {
     pushTask: async (_, args) => {
       const { id, newStartTime, newEndTime } = args;
       console.log("Push Task Backend Args: ", args)
-      const newTimeOfDayHour = new Date(newStartTime).getHours();
+      const newTimeOfDayHour = new Date(Number(newStartTime)).getHours();
       let newTimeOfDay;
       if (newTimeOfDayHour < 7) {
         // dawn
@@ -322,7 +318,7 @@ const resolvers = {
       } else if (newTimeOfDayHour >= 7 && newTimeOfDayHour < 12) {
         // morning
         newTimeOfDay = 2;
-      } else if (newTimeOfDayHour >= 12 && newTimeOfDayHour < 18) {
+      } else if (newTimeOfDayHour >= 12 && newTimeOfDayHour <= 18) {
         // afternoon
         newTimeOfDay = 3;
       } else {
